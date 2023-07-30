@@ -22,11 +22,14 @@ app.use(
 );
 app.use("/public", express.static(path.join(__dirname, "public")));
 app.get("/listas", (req, res) => {
+  
   connection.query("SELECT * FROM listas", function (err, result, fields) {
     if (err) throw err;
-    console.log(result);
+    res.json(result);
      return result;
+     
   });
+ 
 });
 
 app.get("/apiResponseTest", (req, res) => {
