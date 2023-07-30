@@ -1,6 +1,13 @@
 import '../App.css'
+import { useState, useEffect } from 'react'
+const API_URL = 'http://localhost:8080/listas'
 export default function SideBar(){
-
+    const [list, setLists] = useState(null)
+    useEffect(()=>{
+      fetch(API_URL)
+      .then((Response) => Response.json())
+      .then((data) => setLists(data))
+    }, []);
     return(
         <div className='SideBar'>
           <div className="Info">
@@ -12,8 +19,9 @@ export default function SideBar(){
 
         <div className="WorkSpace">Workspace</div>
         <ul style={{listStyle:'none'}}>
-            <li>Prueba de Lista 1</li>
-            <li>Prueba de Lista 2</li>
+        
+       {list?.map((list) => (<li key = {list.id} >{list.listName}</li>))}
+        
         </ul>
 
         <p>Shared</p>
